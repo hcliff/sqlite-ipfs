@@ -1,0 +1,29 @@
+{
+  "name": "sqlite-ipfs",
+  "version": "1.0.0",
+  "description": "sqlite on ipfs",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && ./node_modules/.bin/webpack --mode=development --config webpack.config",
+    "dev": "./node_modules/.bin/webpack serve --mode=development --config webpack.config"
+  },
+  "author": "Henry Clifford",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/preset-typescript": "^7.16.7",
+    "ipfs": "^0.62.0",
+    "level-mem": "^6.0.1",
+    "sql.js": "^1.6.2",
+    "sql.js-httpvfs": "^0.8.11"
+  },
+  "devDependencies": {
+    "@types/sql.js": "^1.4.3",
+    "file-loader": "^6.2.0",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.4",
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.3",
+    "node-polyfill-webpack-plugin": "^1.1.4"
+  }
+}
