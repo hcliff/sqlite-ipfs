@@ -1,16 +1,23 @@
 # sql.js-ipfs
+## [Demo](https://k51qzi5uqu5diy09qbtg7b3ma8n0cj4l05st37rza1bdoyrm3hw0wvzypt8n0l.ipns.dweb.link/)
 
-## Inspiration
+## Inspiration / Deps
 Heavily inspired and uses code from [https://github.com/phiresky/sql.js-httpvfs](sql.js-httpvfs)
 Impossible without [sql.js](https://sql.js.org/#/)
 
 ## Usage
-The demo allows you to interact with any sqllite file on IPFS.
+### Basic
+1) `npm install`
+2) `npm run dev`
+3) **Using https** open your browser and navigate to the url given by webpack
+4) Check the console
+
+### With your own database
 1) [Install IPFS](https://flyingzumwalt.gitbooks.io/decentralized-web-primer/content/install-ipfs/lessons/download-and-install.html)
 2) Add your sqlite file ```ipfs add db.sqlite3```
-3) Take the CID from the output and use it in the demo
-
-Alternatively check the index.ts file for sample code.
+3) Take the CID from the output and change ipfsPath in examples/index.ts
+4) `npm run dev`
+5) `Check the console`
 
 ## FAQ
 * **How does this work?** Your browser runs a wasm binary that contains the sqlite server & client. It reads blocks of data from a .sqlite file on ipfs and performs queries in your browser.

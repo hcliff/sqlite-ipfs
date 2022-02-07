@@ -1,14 +1,14 @@
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 const path = require('path');
 
-const web = {
+const example = {
   target: 'web',
   watch: false,
   devServer: {
     magicHtml: false,
     watchFiles: [],
-    // public: './dist',
-    static: ["assets"],
+
+    static: ["example/assets"],
     https: true,
     // interferes with targeting webworkers
     hot: false,
@@ -28,7 +28,7 @@ const web = {
 
   devtool: 'inline-source-map',
   entry: {
-    index: "./src/index.ts"
+    index: "./example/index.ts"
   },
   plugins: [
     new NodePolyfillPlugin(),
@@ -47,6 +47,34 @@ const web = {
       {
         test: [/\.sqlite3$/],
         loader: 'raw-loader',
+      }
+    ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+    fallback: {
+      fs: false,
+      crypto: false,
+      path: false,
+    },
+  }
+}
+
+const web = {
+  target: 'web',
+  devtool: 'inline-source-map',
+  entry: {
+    index: "./src/index.ts"
+  },
+  plugins: [
+    new NodePolyfillPlugin(),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
       }
     ],
   },
@@ -80,14 +108,6 @@ const workers = {
         test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/,
-      },
-      {
-        test: [/\.wasm$/],
-        type: 'asset/resource',
-      },
-      {
-        test: [/\.sqlite3$/],
-        loader: 'raw-loader',
       }
     ],
   },
@@ -104,4 +124,4 @@ const workers = {
   },
 };
 
-module.exports = [web, workers];
+module.exports = [example, web, workers];

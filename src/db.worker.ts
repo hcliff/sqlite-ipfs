@@ -92,9 +92,6 @@ export async function createDbWorker(
     asyncReaderURL: string,
     path: string,
 ): Promise<{ db: Database }> {
-
-    // sqlJsURL = new URL("sql.js/sql-wasm.wasm", import.meta.url).toString();
-
     console.info('beginning initSqlJs');
     const SQL = await initSqlJs({
         locateFile: (file: string) => {

@@ -8,5 +8,5 @@ declare module "json!*" {
 declare module '*.sqlite3' {
     const content: any;
     export default content;
-  }
+}
   

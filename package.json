@@ -4,7 +4,7 @@
   "description": "sqlite on ipfs",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && ./node_modules/.bin/webpack --mode=development --config webpack.config",
+    "build": "rm -rf dist && ./node_modules/.bin/webpack --mode=production --config webpack.config",
     "dev": "./node_modules/.bin/webpack serve --mode=development --config webpack.config"
   },
   "author": "Henry Clifford",

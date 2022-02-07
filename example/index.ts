@@ -1,10 +1,9 @@
-import { SqliteComlinkMod } from "./db.worker";
-import { Database } from "sql.js";
+import { SqliteComlinkMod } from "../src/db.worker";
 import * as Comlink from "comlink";
-import {Database, query} from "./index";
+import {query} from "../src/index";
 
-// const sqlJsURL = new URL("sql.js-httpvfs/dist/sql-wasm.wasm", import.meta.url);
-const sqlJsURL = new URL("sql.js/sql-wasm.wasm", import.meta.url);
+// @ts-ignore we're in a module, and have access to import.meta.url
+const sqlJsURL = new URL("../src/sql.js/sql-wasm.wasm", import.meta.url).toString();
 
 // note: there's no good story around webpack/typescript/webworkers
 // so directly target the compiled file
@@ -21,7 +20,9 @@ async function load() {
   // sample.sqlite3 @ 4kb page size
   // let path = "QmbcqJRH1rvFZtR1NBp5xqHTKz9brvdCRRMtiw6TVetwxa";
   // sample.sqlite3 @ 64kb page size
-  let ipfsPath = "QmZwoJuBtrvSNh6n5XmKoBCVf9Ny7mEGpuWh17JbnQedrw";
+  // let ipfsPath = "QmZwoJuBtrvSNh6n5XmKoBCVf9Ny7mEGpuWh17JbnQedrw";
+  // wdi.sqlite3 @ 64kb page size
+  let ipfsPath = "Qme2jr3JG2CyZK2NJBzse7DjgZzktgbL1jxiJ73AxhuLNA";
 
   const dbManagerWorker: Worker = new Worker(dbWorkerURL);
   const dbManager = Comlink.wrap<SqliteComlinkMod>(dbManagerWorker);
@@ -30,14 +31,14 @@ async function load() {
 
   console.log("begin db worker spawn");
   const { db } = await dbManager.createDbWorker(
-    sqlJsURL.toString(),
+    sqlJsURL,
     ipfsWorkerURL,
     ipfsPath,
   );
   console.log("db worker created", db);
 
   const queryString1 = `select * from sqlite_master;`
-  console.log(exec(db, queryString1));
+  console.log(await query(db, queryString1));
 
   // exec(db, `select * from data where "Country Name" LIKE "%Africa%"`);
   
